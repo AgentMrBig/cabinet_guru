@@ -9,28 +9,25 @@
 </head>
 
 <body>
-
-    <div class="header">
+    <header>
         <h1>Cabinet Guru</h1>
         <h2>Comprehensive Cabinet Planning and Calculation Tool</h2>
-    </div>
+    </header>
 
     <div class="panel">
-        <button onclick="CabinetGuru.Project.saveProject()">Save Project</button>
-        <button onclick="CabinetGuru.Project.loadProject()">Load Project</button>
+        <button onclick="CabinetGuru.Storage.saveProject()">Save Project</button>
+        <button onclick="CabinetGuru.Storage.loadProject()">Load Project</button>
         <input type="file" id="loadProjectFile" style="display: none;"
-            onchange="CabinetGuru.Project.handleFileSelect(event)">
+            onchange="CabinetGuru.Storage.handleFileSelect(event)">
     </div>
 
     <div class="panel">
         <label for="jobName">Job Name:</label>
-        <input type="text" id="jobName" placeholder="Enter job name">
-
+        <input type="text" id="jobName">
         <label for="roomName">Room Name:</label>
-        <input type="text" id="roomName" placeholder="Enter room name">
-
+        <input type="text" id="roomName">
         <label for="ceilingHeight">Ceiling Height (inches):</label>
-        <input type="text" id="ceilingHeight" placeholder="Enter ceiling height in inches (e.g., 96 or 108)">
+        <input type="text" id="ceilingHeight">
     </div>
 
     <div class="panel">
@@ -41,10 +38,8 @@
             <option value="2">2 inches</option>
             <option value="5">5 inches</option>
         </select>
-
         <label for="cabinetNumber">Cabinet Number:</label>
-        <input type="number" id="cabinetNumber" placeholder="Enter cabinet number">
-
+        <input type="number" id="cabinetNumber">
         <label for="cabinetType">Cabinet Type:</label>
         <select id="cabinetType">
             <option value="Base">Base</option>
@@ -56,87 +51,58 @@
             <option value="Pantry">Pantry</option>
             <option value="Pantry Oven/Microwave">Pantry Oven/Microwave</option>
         </select>
-
         <label for="cabWidth">Width of Cabinet (inches):</label>
-        <input type="text" id="cabWidth" placeholder="Enter width in inches (e.g., 24 or 24 1/2)">
-
+        <input type="text" id="cabWidth">
         <label for="cabDepth">Depth of Cabinet (inches):</label>
-        <input type="text" id="cabDepth" placeholder="Enter depth in inches (e.g., 24 or 24 1/2)">
-
+        <input type="text" id="cabDepth">
         <label for="numSpanners">Number of Horizontal Spanners (Including top and bottom):</label>
-        <input type="number" id="numSpanners" placeholder="Enter number of spanners">
-
+        <input type="number" id="numSpanners">
         <label for="cabHeight">Height of Cabinet (inches):</label>
-        <input type="text" id="cabHeight" placeholder="Enter height in inches (e.g., 30 or 30 1/4)">
-
+        <input type="text" id="cabHeight">
         <label for="numSides">Number of Sides (including dividers):</label>
-        <input type="number" id="numSides" placeholder="Enter number of sides">
+        <input type="number" id="numSides">
 
         <div class="toggle-group">
             <label for="leftBeautyPanel">Left Beauty Panel:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="leftBeautyPanel">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="leftBeautyPanel">
         </div>
 
         <div class="toggle-group">
             <label for="rightBeautyPanel">Right Beauty Panel:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="rightBeautyPanel">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="rightBeautyPanel">
         </div>
 
         <div class="toggle-group">
             <label for="leftFiller">Left Filler:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="leftFiller">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="leftFiller">
         </div>
 
         <div class="toggle-group">
             <label for="rightFiller">Right Filler:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="rightFiller">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="rightFiller">
         </div>
 
         <div class="toggle-group">
             <label for="bottomSkin">Bottom Skin:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="bottomSkin">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="bottomSkin">
         </div>
 
-        <div class="toggle-group" id="lightRailToggle" style="display: none;">
+        <div id="lightRailToggle" class="toggle-group" style="display: none;">
             <label for="hasLightRail">Light Rail:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="hasLightRail">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="hasLightRail">
         </div>
 
-        <div class="toggle-group" id="crownToggle" style="display: none;">
+        <div id="crownToggle" class="toggle-group" style="display: none;">
             <label for="hasCrown">Crown:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="hasCrown">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="hasCrown">
         </div>
 
-        <div class="toggle-group" id="crownCleatToggle" style="display: none;">
+        <div id="crownCleatToggle" class="toggle-group" style="display: none;">
             <label for="hasCrownCleat">Crown Cleat:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="hasCrownCleat">
-                <span class="slider"></span>
-            </label>
+            <input type="checkbox" id="hasCrownCleat">
         </div>
 
-        <button onclick="CabinetGuru.Main.addCabinet()">Add Cabinet to List</button>
+        <button onclick="CabinetGuru.CabinetManagement.addCabinet()">Add Cabinet to List</button>
     </div>
 
     <div id="cabinetListContainer" class="panel">
@@ -148,8 +114,8 @@
     <div id="runsContainer" class="panel">
         <h3>Cabinet Runs</h3>
         <div>
-            <button onclick="CabinetGuru.Main.createRun('Upper')">Create Upper Run</button>
-            <button onclick="CabinetGuru.Main.createRun('Base')">Create Base Run</button>
+            <button onclick="CabinetGuru.RunManagement.createRun('Upper')">Create Upper Run</button>
+            <button onclick="CabinetGuru.RunManagement.createRun('Base')">Create Base Run</button>
         </div>
         <div id="runsList"></div>
     </div>
@@ -189,7 +155,7 @@
         </div>
         <div id="cabinetListReport">
             <h3>Cabinet List</h3>
-            <table id="cabinetListTable">
+            <table>
                 <thead>
                     <tr>
                         <th>Cabinet Number</th>
@@ -200,23 +166,22 @@
                         <th>Linear Footage</th>
                     </tr>
                 </thead>
-                <tbody id="cabinetListBody">
-                    <!-- Cabinet rows will be inserted here by JavaScript -->
-                </tbody>
+                <tbody id="cabinetListReportBody"></tbody>
             </table>
         </div>
         <div id="totalEdgeBanding">
             <h3>Total Edge Banding</h3>
             <p><strong>Total Linear Footage:</strong> <span id="reportTotalLinearFootage"></span> feet</p>
         </div>
-        <button id="printReportBtn" onclick="window.print()">Print Report</button>
+        <button onclick="window.print()">Print Report</button>
     </div>
 
     <script src="./js/cabinet-guru-utils.js"></script>
     <script src="./js/cabinet-guru-ui.js"></script>
-    <script src="./js/cabinet-guru-project.js"></script>
-    <script src="./js/cabinet-guru-main.js"></script>
-
+    <script src="./js/cabinet-guru-cabinet-management.js"></script>
+    <script src="./js/cabinet-guru-run-management.js"></script>
+    <script src="./js/cabinet-guru-storage.js"></script>
+    <script src="./js/cabinet-guru-core.js"></script>
 </body>
 
 </html>

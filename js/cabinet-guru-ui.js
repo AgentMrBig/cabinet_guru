@@ -25,11 +25,54 @@ CabinetGuru.UI = (function() {
     }
 
     function updateCabinetList(cabinets) {
-        // ... (rest of the function remains the same)
+        const cabinetList = document.getElementById('cabinetList');
+        cabinetList.innerHTML = '';
+        cabinets.forEach((cabinet, index) => {
+            const cabinetItem = document.createElement('div');
+            cabinetItem.className = 'cabinet-item';
+            cabinetItem.setAttribute('draggable', true);
+            cabinetItem.setAttribute('data-index', index);
+            cabinetItem.ondragstart = CabinetGuru.UI.drag;
+            cabinetItem.innerHTML = `
+                <span>${cabinet.cabinetNumber}</span>
+                <span>${cabinet.cabinetType}</span>
+                <span>${cabinet.cabWidth}"</span>
+                <span>${cabinet.cabHeight}"</span>
+                <span>${cabinet.cabDepth}"</span>
+                <span>${cabinet.linearFootage.toFixed(2)} ft</span>
+                <button onclick="CabinetGuru.Main.removeCabinet(${index})">Remove</button>
+            `;
+            cabinetList.appendChild(cabinetItem);
+        });
+
+        document.getElementById('cabinetCount').textContent = cabinets.length;
+        const totalLinearFootage = cabinets.reduce((total, cabinet) => total + cabinet.linearFootage, 0);
+        document.getElementById('totalResult').textContent = totalLinearFootage.toFixed(2);
+    }
+
+    function updateRunsUI(runs) {
+        const runsList = document.getElementById('runsList');
+        runsList.innerHTML = '';
+        runs.forEach((run, index) => {
+            const runItem = document.createElement('div');
+            runItem.className = 'run-item';
+            runItem.innerHTML = `
+                <h4>${run.name} (${run.type})</h4>
+                <div class="run-cabinets" ondrop="CabinetGuru.UI.drop(event, ${index})" ondragover="CabinetGuru.UI.allowDrop(event)">
+                    ${run.cabinets.map((cabinet, cabIndex) => `
+                        <div class="run-cabinet">
+                            ${cabinet.cabinetNumber} - ${cabinet.cabinetType} - ${cabinet.cabWidth}"
+                            <button onclick="CabinetGuru.Main.removeCabinetFromRun(${index}, ${cabIndex})">Remove</button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            runsList.appendChild(runItem);
+        });
     }
 
     function updateReport(cabinets, runs) {
-        // ... (rest of the function remains the same)
+        // ... (keep the existing updateReport function)
     }
 
     function drag(event) {
@@ -61,6 +104,7 @@ CabinetGuru.UI = (function() {
     return {
         toggleCabinetOptions: toggleCabinetOptions,
         updateCabinetList: updateCabinetList,
+        updateRunsUI: updateRunsUI,
         updateReport: updateReport,
         initializeDragAndDrop: initializeDragAndDrop,
         drag: drag,
@@ -68,6 +112,3 @@ CabinetGuru.UI = (function() {
         drop: drop
     };
 })();
-
-// Remove this line as it's now handled in the main module
-// document.addEventListener('DOMContentLoaded', initializeDragAndDrop);

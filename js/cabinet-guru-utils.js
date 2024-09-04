@@ -1,27 +1,48 @@
-function fractionToDecimal(fraction) {
-    if (fraction.includes('/')) {
+var CabinetGuru = CabinetGuru || {};
+
+CabinetGuru.Utils = (function() {
+    function fractionToDecimal(fraction) {
+        if (typeof fraction !== 'string') return Number(fraction);
+        
         const parts = fraction.split(' ');
-        if (parts.length === 2) {
-            const whole = parseFloat(parts[0]);
-            const frac = parts[1].split('/');
-            return whole + (parseFloat(frac[0]) / parseFloat(frac[1]));
-        } else {
-            const frac = parts[0].split('/');
-            return parseFloat(frac[0]) / parseFloat(frac[1]);
+        let result = 0;
+        
+        for (let part of parts) {
+            if (part.includes('/')) {
+                const [numerator, denominator] = part.split('/');
+                result += Number(numerator) / Number(denominator);
+            } else {
+                result += Number(part);
+            }
         }
-    } else {
-        return parseFloat(fraction);
-    }
-}
-
-function calculateLinearFootage(cabWidth, numSpanners, cabHeight, numSides, cabinetType, toeKickHeight) {
-    // Subtract toe kick height from cabinet height if applicable
-    if (!['Upper', 'Pantry', 'Pantry Oven/Microwave'].includes(cabinetType)) {
-        cabHeight -= toeKickHeight;
+        
+        return result;
     }
 
-    // Calculate total length of edges in inches
-    const totalLengthInches = (cabWidth * numSpanners) + (cabHeight * numSides);
-    // Convert to linear footage
-    return totalLengthInches / 12;
-}
+    function calculateLinearFootage(width, spanners, height, sides, cabinetType, toeKickHeight) {
+        let linearFootage = 0;
+        
+        // Calculate basic linear footage
+        linearFootage += width * 2; // Front and back
+        linearFootage += height * 2; // Top and bottom
+        linearFootage += height * (sides - 2); // Side panels minus front and back
+        
+        // Add spanners
+        linearFootage += width * spanners;
+        
+        // Adjust for cabinet type
+        if (cabinetType === 'Base' || cabinetType === 'Vanity') {
+            linearFootage += width; // Add toe kick
+        }
+        
+        // Convert to feet
+        return linearFootage / 12;
+    }
+
+    return {
+        fractionToDecimal: fractionToDecimal,
+        calculateLinearFootage: calculateLinearFootage
+    };
+})();
+
+console.log('CabinetGuru.Utils loaded:', CabinetGuru.Utils);
