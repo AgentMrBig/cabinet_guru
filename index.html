@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabinet Guru</title>
+    <link rel="stylesheet" href="./css/cabinet-guru.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Cabinet Guru</h1>
+        <h2>Comprehensive Cabinet Planning and Calculation Tool</h2>
+    </div>
+
+    <div class="panel">
+        <button onclick="CabinetGuru.Project.saveProject()">Save Project</button>
+        <button onclick="CabinetGuru.Project.loadProject()">Load Project</button>
+        <input type="file" id="loadProjectFile" style="display: none;"
+            onchange="CabinetGuru.Project.handleFileSelect(event)">
+    </div>
+
+    <div class="panel">
+        <label for="jobName">Job Name:</label>
+        <input type="text" id="jobName" placeholder="Enter job name">
+
+        <label for="roomName">Room Name:</label>
+        <input type="text" id="roomName" placeholder="Enter room name">
+
+        <label for="ceilingHeight">Ceiling Height (inches):</label>
+        <input type="text" id="ceilingHeight" placeholder="Enter ceiling height in inches (e.g., 96 or 108)">
+    </div>
+
+    <div class="panel">
+        <label for="toeKickHeight">Toe Kick Height:</label>
+        <select id="toeKickHeight">
+            <option value="4">4 inches</option>
+            <option value="3">3 inches</option>
+            <option value="2">2 inches</option>
+            <option value="5">5 inches</option>
+        </select>
+
+        <label for="cabinetNumber">Cabinet Number:</label>
+        <input type="number" id="cabinetNumber" placeholder="Enter cabinet number">
+
+        <label for="cabinetType">Cabinet Type:</label>
+        <select id="cabinetType">
+            <option value="Base">Base</option>
+            <option value="Upper">Upper</option>
+            <option value="Vanity">Vanity</option>
+            <option value="Sink Cab">Sink Cab</option>
+            <option value="Stove Cab">Stove Cab</option>
+            <option value="Farm Sink Cab">Farm Sink Cab</option>
+            <option value="Pantry">Pantry</option>
+            <option value="Pantry Oven/Microwave">Pantry Oven/Microwave</option>
+        </select>
+
+        <label for="cabWidth">Width of Cabinet (inches):</label>
+        <input type="text" id="cabWidth" placeholder="Enter width in inches (e.g., 24 or 24 1/2)">
+
+        <label for="cabDepth">Depth of Cabinet (inches):</label>
+        <input type="text" id="cabDepth" placeholder="Enter depth in inches (e.g., 24 or 24 1/2)">
+
+        <label for="numSpanners">Number of Horizontal Spanners (Including top and bottom):</label>
+        <input type="number" id="numSpanners" placeholder="Enter number of spanners">
+
+        <label for="cabHeight">Height of Cabinet (inches):</label>
+        <input type="text" id="cabHeight" placeholder="Enter height in inches (e.g., 30 or 30 1/4)">
+
+        <label for="numSides">Number of Sides (including dividers):</label>
+        <input type="number" id="numSides" placeholder="Enter number of sides">
+
+        <div class="toggle-group">
+            <label for="leftBeautyPanel">Left Beauty Panel:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="leftBeautyPanel">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label for="rightBeautyPanel">Right Beauty Panel:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="rightBeautyPanel">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label for="leftFiller">Left Filler:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="leftFiller">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label for="rightFiller">Right Filler:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="rightFiller">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label for="bottomSkin">Bottom Skin:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="bottomSkin">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group" id="lightRailToggle" style="display: none;">
+            <label for="hasLightRail">Light Rail:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="hasLightRail">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group" id="crownToggle" style="display: none;">
+            <label for="hasCrown">Crown:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="hasCrown">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group" id="crownCleatToggle" style="display: none;">
+            <label for="hasCrownCleat">Crown Cleat:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="hasCrownCleat">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <button onclick="CabinetGuru.Main.addCabinet()">Add Cabinet to List</button>
+    </div>
+
+    <div id="cabinetListContainer" class="panel">
+        <h3>Total Linear Footage: <span id="totalResult">0.00</span> feet</h3>
+        <h4>Total Cabinets: <span id="cabinetCount">0</span></h4>
+        <div id="cabinetList"></div>
+    </div>
+
+    <div id="runsContainer" class="panel">
+        <h3>Cabinet Runs</h3>
+        <div>
+            <button onclick="CabinetGuru.Main.createRun('Upper')">Create Upper Run</button>
+            <button onclick="CabinetGuru.Main.createRun('Base')">Create Base Run</button>
+        </div>
+        <div id="runsList"></div>
+    </div>
+
+    <div id="reportSection" class="panel">
+        <h2>Project Report</h2>
+        <div id="jobDetails">
+            <h3>Job Details</h3>
+            <p><strong>Job Name:</strong> <span id="reportJobName"></span></p>
+            <p><strong>Room Name:</strong> <span id="reportRoomName"></span></p>
+            <p><strong>Ceiling Height:</strong> <span id="reportCeilingHeight"></span></p>
+        </div>
+        <div id="trimItems">
+            <h3>Trim Items</h3>
+            <ul>
+                <li><strong>Light Rail:</strong> <span id="reportLightRail"></span> x 8' lengths</li>
+                <li><strong>Crown Cleat:</strong> <span id="reportCrownCleat"></span> x 8' lengths</li>
+                <li><strong>Crown:</strong> <span id="reportCrown"></span> x 8' lengths</li>
+                <li><strong>Toe Kick:</strong> <span id="reportToeKick"></span> x 8' lengths</li>
+            </ul>
+        </div>
+        <div id="otherTrimItems">
+            <h3>Other Trim Items</h3>
+            <ul>
+                <li><strong>Base Fillers:</strong> <span id="reportBaseFillers"></span></li>
+                <li><strong>Upper Fillers:</strong> <span id="reportUpperFillers"></span></li>
+                <li><strong>Base Beauty Panels:</strong> <span id="reportBaseBeautyPanels"></span></li>
+                <li><strong>Upper Beauty Panels:</strong> <span id="reportUpperBeautyPanels"></span></li>
+                <li><strong>Tall Beauty Panels:</strong> <span id="reportTallBeautyPanels"></span></li>
+                <li><strong>1/4" Skins:</strong> <span id="reportQuarterInchSkins"></span></li>
+            </ul>
+        </div>
+        <div id="runsReport">
+            <h3>Cabinet Runs</h3>
+            <div id="upperRunsReport"></div>
+            <div id="baseRunsReport"></div>
+        </div>
+        <div id="cabinetListReport">
+            <h3>Cabinet List</h3>
+            <table id="cabinetListTable">
+                <thead>
+                    <tr>
+                        <th>Cabinet Number</th>
+                        <th>Type</th>
+                        <th>Width</th>
+                        <th>Height</th>
+                        <th>Depth</th>
+                        <th>Linear Footage</th>
+                    </tr>
+                </thead>
+                <tbody id="cabinetListBody">
+                    <!-- Cabinet rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div id="totalEdgeBanding">
+            <h3>Total Edge Banding</h3>
+            <p><strong>Total Linear Footage:</strong> <span id="reportTotalLinearFootage"></span> feet</p>
+        </div>
+        <button id="printReportBtn" onclick="window.print()">Print Report</button>
+    </div>
+
+    <script src="./js/cabinet-guru-utils.js"></script>
+    <script src="./js/cabinet-guru-ui.js"></script>
+    <script src="./js/cabinet-guru-project.js"></script>
+    <script src="./js/cabinet-guru-main.js"></script>
+
+</body>
+
+</html>
