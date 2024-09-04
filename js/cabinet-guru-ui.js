@@ -40,15 +40,18 @@ CabinetGuru.UI = (function() {
                 <span>${cabinet.cabHeight}"</span>
                 <span>${cabinet.cabDepth}"</span>
                 <span>${cabinet.linearFootage.toFixed(2)} ft</span>
-                <button onclick="CabinetGuru.Main.removeCabinet(${index})">Remove</button>
+                <button onclick="CabinetGuru.UI.editCabinet(${index})">Edit</button>
+                <button onclick="CabinetGuru.CabinetManagement.removeCabinet(${index})">Remove</button>
             `;
             cabinetList.appendChild(cabinetItem);
         });
-
+    
         document.getElementById('cabinetCount').textContent = cabinets.length;
         const totalLinearFootage = cabinets.reduce((total, cabinet) => total + cabinet.linearFootage, 0);
         document.getElementById('totalResult').textContent = totalLinearFootage.toFixed(2);
     }
+
+    
 
     function updateRunsUI(runs) {
         const runsList = document.getElementById('runsList');

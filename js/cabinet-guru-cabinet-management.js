@@ -18,6 +18,15 @@ CabinetGuru.CabinetManagement = (function() {
         clearForm();
     }
 
+    function removeCabinet(index) {
+        console.log('Removing cabinet at index:', index);
+        cabinets.splice(index, 1);
+        CabinetGuru.UI.updateCabinetList(cabinets);
+        CabinetGuru.UI.updateRunsUI(CabinetGuru.RunManagement.getRuns());
+        CabinetGuru.UI.updateReport(cabinets, CabinetGuru.RunManagement.getRuns());
+        CabinetGuru.Storage.autoSave();
+    }
+
     function updateCabinet(index) {
         console.log('Updating cabinet at index:', index);
         if (!CabinetGuru.Core.checkUIFunctions()) {
@@ -134,5 +143,5 @@ CabinetGuru.CabinetManagement = (function() {
         removeCabinet: removeCabinet,
         getCabinets: getCabinets,
         setCabinets: setCabinets
-    };
+    }
 })();

@@ -64,42 +64,68 @@
 
         <div class="toggle-group">
             <label for="leftBeautyPanel">Left Beauty Panel:</label>
-            <input type="checkbox" id="leftBeautyPanel">
+            <div class="toggle-switch">
+                <input type="checkbox" id="leftBeautyPanel" class="toggle-input">
+                <label for="leftBeautyPanel" class="toggle-label"></label>
+            </div>
         </div>
 
         <div class="toggle-group">
             <label for="rightBeautyPanel">Right Beauty Panel:</label>
-            <input type="checkbox" id="rightBeautyPanel">
+            <div class="toggle-switch">
+                <input type="checkbox" id="rightBeautyPanel" class="toggle-input">
+                <label for="rightBeautyPanel" class="toggle-label"></label>
+            </div>
         </div>
 
         <div class="toggle-group">
             <label for="leftFiller">Left Filler:</label>
-            <input type="checkbox" id="leftFiller">
+            <div class="toggle-switch">
+                <input type="checkbox" id="leftFiller" class="toggle-input">
+                <label for="leftFiller" class="toggle-label"></label>
+            </div>
         </div>
 
         <div class="toggle-group">
             <label for="rightFiller">Right Filler:</label>
-            <input type="checkbox" id="rightFiller">
+            <div class="toggle-switch">
+                <input type="checkbox" id="rightFiller" class="toggle-input">
+                <label for="rightFiller" class="toggle-label"></label>
+            </div>
         </div>
+
+
 
         <div class="toggle-group">
             <label for="bottomSkin">Bottom Skin:</label>
-            <input type="checkbox" id="bottomSkin">
+            <div class="toggle-switch">
+                <input type="checkbox" id="bottomSkin" class="toggle-input">
+                <label for="bottomSkin" class="toggle-label"></label>
+            </div>
         </div>
 
         <div id="lightRailToggle" class="toggle-group" style="display: none;">
             <label for="hasLightRail">Light Rail:</label>
-            <input type="checkbox" id="hasLightRail">
+            <div class="toggle-switch">
+                <input type="checkbox" id="hasLightRail" class="toggle-input">
+                <label for="hasLightRail" class="toggle-label"></label>
+            </div>
         </div>
 
         <div id="crownToggle" class="toggle-group" style="display: none;">
             <label for="hasCrown">Crown:</label>
-            <input type="checkbox" id="hasCrown">
+            <div class="toggle-switch">
+                <input type="checkbox" id="hasCrown" class="toggle-input">
+                <label for="hasCrown" class="toggle-label"></label>
+            </div>
         </div>
 
         <div id="crownCleatToggle" class="toggle-group" style="display: none;">
             <label for="hasCrownCleat">Crown Cleat:</label>
-            <input type="checkbox" id="hasCrownCleat">
+            <div class="toggle-switch">
+                <input type="checkbox" id="hasCrownCleat" class="toggle-input">
+                <label for="hasCrownCleat" class="toggle-label"></label>
+            </div>
         </div>
 
         <button onclick="CabinetGuru.CabinetManagement.addCabinet()">Add Cabinet to List</button>
@@ -176,12 +202,12 @@
         <button onclick="window.print()">Print Report</button>
     </div>
 
-    <script src="./js/cabinet-guru-utils.js"></script>
-    <script src="./js/cabinet-guru-ui.js"></script>
-    <script src="./js/cabinet-guru-cabinet-management.js"></script>
-    <script src="./js/cabinet-guru-run-management.js"></script>
-    <script src="./js/cabinet-guru-storage.js"></script>
-    <script src="./js/cabinet-guru-core.js"></script>
+    <script src="js/cabinet-guru-utils.js"></script>
+    <script src="js/cabinet-guru-ui.js"></script>
+    <script src="js/cabinet-guru-storage.js"></script>
+    <script src="js/cabinet-guru-cabinet-management.js"></script>
+    <script src="js/cabinet-guru-run-management.js"></script>
+    <script src="js/cabinet-guru-core.js"></script>
 </body>
 
 </html>
